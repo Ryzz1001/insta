@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - a história</title>
+    <!-- Favicon (ícone do site na aba do navegador) -->
+    <link rel="icon" href="uploaded:image_11e1cf.png-a665b1bb-3d23-4542-bfc9-afa9848ae2b3" type="image/png">
+    <!-- Tailwind CSS CDN para estilo responsivo e moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para o corpo e layout geral */
+        body {
+            font-family: "Inter", sans-serif; /* Usando a fonte Inter conforme instrução */
+            background-color: #000; /* Fundo preto */
+            color: #fff; /* Texto branco */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh; /* Altura mínima da tela para o corpo */
+            overflow-y: auto; /* Permite rolagem vertical */
+        }
+
+        /* Container principal do Instagram para layout flexível */
+        .instagram-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px; /* Largura máxima para desktops */
+            background-color: #000;
+            border-radius: 0.5rem; /* Cantos arredondados */
+            overflow: hidden; /* Garante que o conteúdo não vaze */
+            height: 100vh; /* Ocupa a altura total da viewport */
+        }
+
+        /* Barra lateral de navegação */
+        .sidebar {
+            width: 250px; /* Largura fixa da barra lateral */
+            background-color: #000;
+            padding: 1.25rem; /* Padding interno */
+            border-right: 1px solid #262626; /* Borda divisória */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Logo do Instagram na barra lateral */
+        .logo-instagram {
+            margin-bottom: 1.875rem; /* Espaço abaixo da logo */
+        }
+
+        .logo-instagram img {
+            width: 7.5rem; /* Largura da logo */
+            height: auto; /* Altura automática */
+        }
+
+        /* Lista de itens da barra lateral */
+        .sidebar ul {
+            list-style: none; /* Remove marcadores de lista */
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.9375rem; /* Espaçamento entre os itens */
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 0.9375rem; /* Padding para cada item */
+            border-radius: 0.5rem; /* Cantos arredondados */
+            transition: background-color 0.2s ease; /* Transição suave no hover */
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #1a1a1a; /* Cor de fundo no hover */
+        }
+
+        .sidebar ul li a svg { /* Estilo para os ícones SVG */
+            width: 1.5rem; /* Tamanho do ícone */
+            height: 1.5rem;
+            margin-right: 0.9375rem; /* Espaço entre ícone e texto */
+            fill: currentColor; /* Garante que o ícone herde a cor do texto */
+        }
+
+        /* Estilos para as seções Meta AI, AI Studio, Threads, Mais */
+        .meta-ai, .ai-studio, .threads, .mais {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            margin-top: 1.25rem;
+            padding: 0.625rem 0.9375rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .meta-ai svg, .ai-studio svg, .threads svg, .mais svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.9375rem;
+            fill: currentColor;
+        }
+
+        .meta-ai:hover, .ai-studio:hover, .threads:hover, .mais:hover {
+            background-color: #1a1a1a;
+        }
+
+        /* Conteúdo principal da página */
+        .main-content {
+            flex-grow: 1; /* Ocupa o espaço restante */
+            padding: 1.25rem 2.5rem; /* Padding interno */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Garante que o conteúdo principal tenha pelo menos a altura da tela */
+        }
+
+        /* Cabeçalho superior direito */
+        .header-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-right: 1.25rem;
+        }
+
+        .user-info img {
+            width: 2rem; /* Tamanho do avatar do usuário */
+            height: 2rem;
+            border-radius: 50%; /* Borda arredondada para o avatar */
+            margin-right: 0.625rem;
+        }
+
+        .mudar-button {
+            background: none;
+            border: none;
+            color: #0095f6; /* Cor azul do Instagram */
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0.3rem 0.6rem; /* Padding para o botão */
+            border-radius: 0.3rem; /* Cantos arredondados */
+            transition: background-color 0.2s ease;
+        }
+        .mudar-button:hover {
+            background-color: #0095f620; /* Leve fundo azul no hover */
+        }
+
+        /* Seção de sugestões para você */
+        .sugestoes-voce {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.875rem;
+            font-size: 0.9em;
+            color: #a8a8a8;
+        }
+
+        .sugestoes-voce a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Seção central com a logo do Instagram e "a história" */
+        .middle-section {
+            background-color: #000;
+            border: 1px solid #262626;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 25rem; /* Altura mínima para a seção central */
+            text-align: center;
+            margin-bottom: 1.875rem;
+            display: block; /* Garante que ela ocupe espaço */
+        }
+
+        /* Esconde a seção central quando a seção de explorar estiver visível */
+        .middle-section.hidden {
+            display: none;
+        }
+
+        .middle-section h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .middle-section p {
+            font-size: 1.1em;
+            margin-bottom: 0.8rem;
+            color: #a8a8a8;
+            line-height: 1.5;
+        }
+
+
+        /* Seção de explorar com a história do Instagram */
+        .explore-section {
+            background-color: #000;
+            border: 1px solid #262626;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            min-height: 25rem;
+            display: none; /* Inicia escondida por padrão */
+            flex-direction: column;
+        }
+
+        /* Título da seção de explorar */
+        .explore-section h2 {
+            color: #fff;
+            margin-bottom: 0.9375rem;
+        }
+
+        /* Parágrafos da seção de explorar */
+        .explore-section p {
+            color: #a8a8a8;
+            line-height: 1.6;
+            margin-bottom: 0.625rem;
+        }
+
+        /* Torna a seção de explorar visível */
+        .explore-section.visible {
+            display: flex;
+        }
+
+        /* Rodapé com informações e direitos autorais */
+        .footer-info {
+            text-align: center;
+            font-size: 0.8em;
+            color: #737373;
+            margin-top: auto; /* Empurra o rodapé para o final do main-content */
+            padding-bottom: 1.25rem; /* Padding inferior */
+        }
+
+        .footer-info p {
+            margin: 0.3125rem 0;
+        }
+
+        /* Estilos para a animação de introdução */
+        #intro-animation-overlay {
+            position: fixed; /* Fixa na tela */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* Fundo preto cobrindo tudo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Garante que esteja acima de todo o conteúdo */
+            opacity: 1; /* Inicia visível */
+            transition: opacity 1s ease-out; /* Transição suave para o fade out */
+        }
+
+        #intro-animation-overlay.fade-out {
+            opacity: 0; /* Opacidade zero para desaparecer */
+        }
+
+        #intro-animation-overlay img {
+            width: 200px; /* Tamanho da logo na animação */
+            height: auto;
+            animation: pulse-grow 1s ease-in-out forwards; /* Animação de pulsar e crescer */
+        }
+
+        @keyframes pulse-grow {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Modal para a seção "Mais" */
+        .more-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; /* Acima do overlay de introdução */
+            visibility: hidden; /* Inicialmente invisível */
+            opacity: 0; /* Começa transparente */
+            transition: visibility 0s, opacity 0.3s ease-in-out; /* Transição para fade in/out */
+        }
+
+        .more-modal-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .more-modal-content {
+            background-color: #1a1a1a; /* Fundo do modal */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative; /* Para posicionar o botão de fechar */
+            width: 90%;
+            max-width: 400px; /* Largura máxima do modal */
+            color: #fff;
+            text-align: center;
+        }
+
+        .more-modal-content h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.25rem;
+        }
+
+        .more-modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .more-modal-content ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #333; /* Linha divisória */
+        }
+
+        .more-modal-content ul li:last-child {
+            border-bottom: none; /* Remove a borda do último item */
+        }
+
+        .more-modal-close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            color: #a8a8a8;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .more-modal-close-button:hover {
+            background-color: #333;
+        }
+
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            .instagram-container {
+                flex-direction: column; /* Pilha a barra lateral e o conteúdo em telas pequenas */
+                height: auto; /* Altura automática para permitir rolagem */
+            }
+
+            .sidebar {
+                width: 100%; /* Barra lateral ocupa a largura total */
+                border-right: none;
+                border-bottom: 1px solid #262626; /* Borda na parte inferior */
+                padding: 1rem;
+            }
+
+            .sidebar ul {
+                display: flex; /* Itens da barra lateral em linha */
+                flex-wrap: wrap; /* Quebra para a próxima linha se necessário */
+                justify-content: center; /* Centraliza os itens */
+            }
+
+            .sidebar ul li {
+                margin: 0.5rem; /* Espaçamento entre os itens */
+            }
+
+            .sidebar ul li a {
+                flex-direction: column; /* Ícone e texto em coluna */
+                align-items: center;
+                padding: 0.5rem;
+            }
+
+            .sidebar ul li a svg { /* Estilo para os ícones SVG em telas pequenas */
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .logo-instagram {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem; /* Reduz padding em telas pequenas */
+                min-height: auto;
+            }
+
+            .header-right {
+                justify-content: center; /* Centraliza o cabeçalho */
+                margin-bottom: 1rem;
+            }
+
+            .sugestoes-voce {
+                flex-direction: column; /* Sugestões empilhadas */
+                align-items: flex-start;
+                margin-bottom: 1.5rem;
+            }
+
+            .sugestoes-voce a {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay de animação de introdução -->
+    <div id="intro-animation-overlay">
+        <!-- Logo do Instagram para a animação (agora usando a imagem fornecida) -->
+        <img src="uploaded:image_11e594.png-dd452f86-3bad-44b3-a195-09f912afcf3e" alt="Instagram Logo">
+    </div>
+
+    <!-- Modal para a seção "Mais" -->
+    <div id="more-modal" class="more-modal-overlay">
+        <div class="more-modal-content">
+            <button class="more-modal-close-button" id="close-more-modal">&times;</button>
+            <h2>Envolvidos no Trabalho</h2>
+            <ul>
+                <li>Ryan Gabriel - Criador do site</li>
+                <li>S/N</li>
+                <li>S/N</li>
+                <li>S/N</li>
+                <li>S/N</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="instagram-container">
+        <!-- Barra Lateral -->
+        <div class="sidebar">
+            <div class="logo-instagram">
+                <!-- Imagem da logo do Instagram na barra lateral (também atualizada) -->
+                <img src="uploaded:image_11e594.png-dd452f86-3bad-44b3-a195-09f912afcf3e" alt="Instagram - a história">
+            </div>
+            <ul>
+                <li>
+                    <a href="#pagina-inicial" id="link-pagina-inicial">
+                        <!-- Ícone de Página inicial (Home) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        Página inicial
+                    </a>
+                </li>
+                <li>
+                    <a href="#explorar" id="link-explorar">
+                        <!-- Ícone de Explorar (Search) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        Explorar
+                    </a>
+                </li>
+                <li>
+                    <a href="#reels">
+                        <!-- Ícone de Reels (Video) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play-circle"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        Reels
+                    </a>
+                </li>
+                <li>
+                    <a href="#mensagens">
+                        <!-- Ícone de Mensagens (Message Circle) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                        Mensagens
+                    </a>
+                </li>
+                <li>
+                    <a href="#notificacoes">
+                        <!-- Ícone de Notificações (Heart) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        Notificações
+                    </a>
+                </li>
+                <li>
+                    <a href="#criar">
+                        <!-- Ícone de Criar (Plus Square) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-square"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                        Criar
+                    </a>
+                </li>
+                <li>
+                    <a href="#perfil">
+                        <!-- Ícone de Perfil (User) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Perfil
+                    </a>
+                </li>
+            </ul>
+            <div class="mt-auto w-full"> <!-- Empurra os itens abaixo para o final da barra lateral -->
+                <div class="meta-ai">
+                    <!-- Ícone Meta AI (Sparkles) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="M9.9 10.99 7.5 12.5 6.1 10.1M10.1 6.1 12.5 7.5 10.99 9.9M6.1 6.1 7.5 10.1 9.9 7.5M17.9 13.01 15.5 11.5 13.99 13.99M15.5 16.5 17.9 15.01 16.5 17.9M13.01 17.9 11.5 15.5 13.99 13.99M17.9 6.1 15.5 7.5 13.99 9.9M15.5 9.9 17.9 10.99 16.5 13.99M10.1 17.9 12.5 16.5 13.99 17.9M17.9 17.9 15.5 16.5 16.5 17.9M6.1 17.9 7.5 16.5 9.9 17.9M6.1 9.9 7.5 10.1 9.9 10.1M12 2v2"/><path d="M12 20v2"/><path d="M22 12h-2"/><path d="M4 12H2"/></svg>
+                    Meta AI
+                </div>
+                <div class="ai-studio">
+                    <!-- Ícone AI Studio (Cpu) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M20 15h2"/><path d="M2 9h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+                    AI Studio
+                </div>
+                <div class="threads">
+                    <!-- Ícone Threads (Message Square) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Threads
+                </div>
+                <div class="mais" id="link-mais"> <!-- Adicionado ID para o evento de clique -->
+                    <!-- Ícone Mais (Menu) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    Mais
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="main-content">
+            <div class="header-right">
+                <div class="user-info">
+                    <!-- Avatar do usuário -->
+                    <img src="https://placehold.co/32x32/FF0000/FFFFFF?text=D" alt="User Avatar" class="rounded-full">
+                    <span>conta de desenvolvedor</span>
+                </div>
+                <button class="mudar-button">Mudar</button>
+            </div>
+
+            <div class="sugestoes-voce">
+                <span>Sugestões para você</span>
+                <a href="#">Ver tudo</a>
+            </div>
+
+            <!-- Seção central com o novo texto de introdução -->
+            <div class="middle-section" id="pagina-inicial-content">
+                <h2 class="text-2xl font-bold mb-4">Você sabe sobre a criação do Instagram?</h2>
+                <p class="text-lg">Aqui nesse site explicaremos como ele surgiu e se desenvolveu ao decorrer dos anos.</p>
+                <p class="text-lg mt-2">Clique no botão "Explorar" para saber mais!</p>
+            </div>
+
+            <!-- Seção Explorar com o texto de placeholder (inicialmente oculta) -->
+            <div class="explore-section" id="explore-content">
+                <h2 class="text-xl font-bold mb-4">Inserir texto aqui</h2>
+            </div>
+
+            <!-- Rodapé da página -->
+            <div class="footer-info">
+                <p>Sobre • Ajuda • Imprensa • API • Carreiras • Privacidade • Termos • Localizações • Idioma • Meta Verified</p>
+                <p>© 2025 INSTAGRAM FROM META</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos para a funcionalidade "Explorar"
+            const exploreLink = document.getElementById('link-explorar');
+            const paginaInicialLink = document.getElementById('link-pagina-inicial');
+            const middleSection = document.getElementById('pagina-inicial-content');
+            const exploreSection = document.getElementById('explore-content');
+            
+            // Elementos para a animação de introdução
+            const introOverlay = document.getElementById('intro-animation-overlay');
+
+            // Elementos para o modal "Mais"
+            const maisLink = document.getElementById('link-mais');
+            const moreModal = document.getElementById('more-modal');
+            const closeMoreModalButton = document.getElementById('close-more-modal');
+
+            // Lógica da animação de introdução
+            setTimeout(() => {
+                introOverlay.classList.add('fade-out');
+                setTimeout(() => {
+                    introOverlay.style.display = 'none'; // Esconde o overlay após a transição
+                }, 1000); // 1 segundo para a transição de opacidade
+            }, 2000); // Inicia o fade-out após a animação de pulso (1s) + um pequeno delay (1s)
+
+            // Lógica para alternar entre as seções "Página inicial" e "Explorar"
+            exploreLink.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                middleSection.classList.add('hidden'); 
+                exploreSection.classList.add('visible'); 
+            });
+
+            paginaInicialLink.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                exploreSection.classList.remove('visible'); 
+                middleSection.classList.remove('hidden'); 
+            });
+
+            // Lógica para exibir o modal "Mais"
+            if (maisLink) { // Verifica se o elemento existe para evitar erros
+                maisLink.addEventListener('click', function() {
+                    moreModal.classList.add('visible'); // Adiciona a classe 'visible' para mostrar o modal
+                });
+            }
+
+            // Lógica para fechar o modal "Mais"
+            if (closeMoreModalButton) { // Verifica se o elemento existe
+                closeMoreModalButton.addEventListener('click', function() {
+                    moreModal.classList.remove('visible'); // Remove a classe 'visible' para esconder o modal
+                });
+            }
+
+            // Fechar modal ao clicar fora dele (opcional)
+            if (moreModal) {
+                moreModal.addEventListener('click', function(event) {
+                    // Se o clique foi no overlay e não no conteúdo do modal
+                    if (event.target === moreModal) {
+                        moreModal.classList.remove('visible');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
